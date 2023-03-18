@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "mainpage.py", line 3, in <module>
+    from process import *
+  File "/root/SourceCode/Reset Page/process.py", line 1, in <module>
+    import pandas as pd
+  File "/usr/lib64/python3.6/site-packages/pandas/__init__.py", line 17, in <module>
+    "Unable to import required dependencies:\n" + "\n".join(missing_dependencies)
+ImportError: Unable to import required dependencies:
+pytz: No module named 'pytz'
