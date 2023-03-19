@@ -1,9 +1,38 @@
-Traceback (most recent call last):
-  File "mainpage.py", line 3, in <module>
-    from process import *
-  File "/root/SourceCode/Reset Page/process.py", line 1, in <module>
-    import pandas as pd
-  File "/usr/lib64/python3.6/site-packages/pandas/__init__.py", line 17, in <module>
-    "Unable to import required dependencies:\n" + "\n".join(missing_dependencies)
-ImportError: Unable to import required dependencies:
-pytz: No module named 'pytz'
+ * Serving Flask app 'mainpage'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5003
+ * Running on http://10.184.0.2:5003
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 407-400-269
+114.125.102.23 - - [19/Mar/2023 09:09:22] "GET /docker-status HTTP/1.1" 200 -
+114.125.102.23 - - [19/Mar/2023 09:09:25] "POST /login HTTP/1.1" 200 -
+114.125.102.23 - - [19/Mar/2023 09:09:25] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:09:25] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:09:25] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
+114.125.102.23 - - [19/Mar/2023 09:09:25] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:09:27] "GET /docker-status HTTP/1.1" 200 -
+114.125.102.23 - - [19/Mar/2023 09:09:27] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:09:27] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:09:27] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
+114.125.102.23 - - [19/Mar/2023 09:09:27] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:10:25] "POST /restart HTTP/1.1" 200 -
+114.125.102.23 - - [19/Mar/2023 09:10:29] "GET /docker-status HTTP/1.1" 200 -
+114.125.102.23 - - [19/Mar/2023 09:10:30] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:10:30] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
+114.125.102.23 - - [19/Mar/2023 09:10:30] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:10:30] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:12:29] "GET /docker-status HTTP/1.1" 200 -
+114.125.102.23 - - [19/Mar/2023 09:12:29] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:12:30] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
+114.125.102.23 - - [19/Mar/2023 09:12:30] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:12:30] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:12:53] "POST /restart HTTP/1.1" 200 -
+114.125.102.23 - - [19/Mar/2023 09:13:19] "GET /docker-status HTTP/1.1" 200 -
+114.125.102.23 - - [19/Mar/2023 09:13:19] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:13:19] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
+114.125.102.23 - - [19/Mar/2023 09:13:19] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
+114.125.102.23 - - [19/Mar/2023 09:13:19] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
