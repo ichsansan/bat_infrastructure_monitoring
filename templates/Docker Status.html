@@ -28,6 +28,7 @@
             <td>{{data['body'][body]['STATUS']}}</td>
             <td>
                 <button class="restart-btn buttonnew">Restart</button>
+                <div class="loading"></div>
             </td>
         </tr>
         {% endfor %}
@@ -38,6 +39,10 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+
+    // Hide all loading messages
+    $('.loading').hide();
+
     $('#myTable').on('click', '.restart-btn', function() {
             // Get the data from the row
             var row = $(this).closest('tr');
@@ -48,7 +53,11 @@ $(document).ready(function() {
             };
 
             // Show a confirmation dialog to the user
-            if (confirm("Are you sure you want to edit this row?")) {
+            if (confirm("Are you sure you want to restart "+ row.find('th:eq(0)').text() +" ?")) {
+                // Tambahkan pesan loading
+                $('.restart-btn').hide();
+                row.find('.loading').show().text('Restarting...');
+
                 // Create a JSON payload
                 var payload = {
                     id: id,
@@ -64,10 +73,15 @@ $(document).ready(function() {
                     success: function(data) {
                         // Redirect the user to the edit page
                         alert(data['message']);
+                        // row.find('.loading').text('');
+                        location.href = "/docker-status";
                     },
                     error: function(xhr, status, error) {
                         // Handle errors
                         console.error(error);
+                        // row.find('.loading').text('');
+                        // $('.restart-btn').show();
+                        location.href = "/docker-status";
                     }
                 });
             }

@@ -60,7 +60,7 @@ def login_proses():
     passWord = login['password']
     # session['logged_in'] = False
 
-    data = pd.read_csv('user.csv')   
+    data = pd.read_csv(r'D:\SML Tech\Monitoring BAT\bat_infrastructure_monitoring\user.csv')   
     df = pd.DataFrame(data, columns=['user', 'password'])
 
     for i in df.index:
