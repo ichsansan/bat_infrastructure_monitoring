@@ -60,7 +60,7 @@ def login_proses():
     passWord = login['password']
     # session['logged_in'] = False
 
-    data = pd.read_csv(r'D:\SML Tech\Monitoring BAT\bat_infrastructure_monitoring\user.csv')   
+    data = pd.read_csv('user.csv')   
     df = pd.DataFrame(data, columns=['user', 'password'])
 
     for i in df.index:
@@ -74,12 +74,14 @@ def login_proses():
 def edit_new():
     payload = request.json
     # Extract the data from the payload and do something with it
-    value1 = payload['value1']
-    value2 = payload['value2']
-    # ...
+    value1 = payload['data']['value1']
+    value2 = payload['data']['value2']
+
+    do_restart_individual_service(value1)
+    
     # Return a JSON response
-    response = {'message': 'Success'}
-    return jsonify(response), 200
+    response = {'message': 'Success', 'datasend':payload}
+    return jsonify(response)
 
     
 @app.route('/logout')
@@ -90,4 +92,4 @@ def logout():
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
-    app.run('0.0.0.0', port=5003, debug=False)
+    app.run('0.0.0.0', port=5003, debug=True)

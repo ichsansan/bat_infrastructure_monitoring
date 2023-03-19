@@ -43,8 +43,8 @@ $(document).ready(function() {
             var row = $(this).closest('tr');
             var id = row.attr('id');
             var data = {
-                'value1': row.find('td:eq(0)').text(),
-                'value2': row.find('td:eq(1)').text()
+                'value1': row.find('th:eq(0)').text(),
+                'value2': row.find('td:eq(0)').text()
             };
 
             // Show a confirmation dialog to the user
@@ -63,7 +63,7 @@ $(document).ready(function() {
                     data: JSON.stringify(payload),
                     success: function(data) {
                         // Redirect the user to the edit page
-                        location.href = '/restart/' + id;
+                        alert(data['message']);
                     },
                     error: function(xhr, status, error) {
                         // Handle errors
@@ -76,9 +76,9 @@ $(document).ready(function() {
 
 
 
-    setTimeout(function(){
-       window.location.reload(1);
-    }, 60000);
+    // setTimeout(function(){
+    //    window.location.reload(1);
+    // }, 60000);
 </script>
 
 {% endblock content %}
