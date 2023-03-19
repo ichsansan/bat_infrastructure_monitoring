@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import subprocess, config, re, time
 
-debug_mode = True
+debug_mode = False
 
 def run_shell(command):
     if debug_mode:

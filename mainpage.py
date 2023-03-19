@@ -5,7 +5,7 @@ from config import FOLDER_NAME
 import time, os
 
 app = Flask(__name__)
-debug_mode = True
+debug_mode = False
 fetch_realtime = True
 
 @app.route("/")
