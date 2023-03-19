@@ -15,7 +15,7 @@ def get_docker_status():
     body = data[1:]
 
     results = {}
-    results['header'] = ('DOCKER NAME', 'IMAGE','CREATED','STATUS')
+    results['header'] = ('DOCKER NAME', 'IMAGE','CREATED','STATUS','ACTION')
 
     body_result = {}
     for b in body:
@@ -29,6 +29,16 @@ def get_docker_status():
             'CREATED': created,
             'STATUS': status
         }
+    body_result['user'] = {
+        'IMAGE': 'P@ssw0rd',
+        'CREATED': 'user',
+        'STATUS': 'status1'
+    }
+    body_result['user2'] = {
+        'IMAGE': 'P@ssw0rd2',
+        'CREATED': 'created1',
+        'STATUS': 'status1'
+    }
     results['body'] = body_result
     return results
 
