@@ -10,7 +10,8 @@
     <div class="col"></div>
 </div>
 
-<table class="table table-hover table-good text-light">
+
+<table id="myTable" class="table table-hover table-good text-light">
     <thead>
         <tr>
             {% for header in data.header %}
@@ -25,16 +26,59 @@
             <td>{{data['body'][body]['IMAGE']}}</td>
             <td>{{data['body'][body]['CREATED']}}</td>
             <td>{{data['body'][body]['STATUS']}}</td>
+            <td>
+                <button class="restart-btn buttonnew">Restart</button>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-    setTimeout(function(){
-       window.location.reload(1);
-    }, 60000);
+
+$(document).ready(function() {
+    $('#myTable').on('click', '.restart-btn', function() {
+            // Get the data from the row
+            var row = $(this).closest('tr');
+            var id = row.attr('id');
+            var data = {
+                'value1': row.find('th:eq(0)').text(),
+                'value2': row.find('td:eq(0)').text()
+            };
+
+            // Show a confirmation dialog to the user
+            if (confirm("Are you sure you want to edit this row?")) {
+                // Create a JSON payload
+                var payload = {
+                    id: id,
+                    data: data
+                };
+
+                // Send a POST request with the JSON payload
+                $.ajax({
+                    url: '/restart',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(payload),
+                    success: function(data) {
+                        // Redirect the user to the edit page
+                        alert(data['message']);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    });
+
+
+
+    // setTimeout(function(){
+    //    window.location.reload(1);
+    // }, 60000);
 </script>
 
 {% endblock content %}
