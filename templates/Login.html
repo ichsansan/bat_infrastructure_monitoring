@@ -1,95 +1,43 @@
-<style>
-    * {
-   box-sizing: border-box;
-   }
-   *:focus {
-   outline: none;
-   }
-   body {
-   font-family: Arial;
-   background-color: #0c0c0c;
-   padding: 10%;
-   }
-   .login {
-   margin: 10px auto;
-   width: 400px;
-   }
-   .login-screen {
-   background-color: #FFF;
-   padding: 10px;
-   border-radius: 5px
-   }
-   .app-title {
-   text-align: center;
-   color: #777;
-   }
-   .login-form {
-   text-align: center;
-   }
-   .control-group {
-   margin-bottom: 10px;
-   }
-   input {
-   text-align: center;
-   background-color: #ECF0F1;
-   border: 2px solid transparent;
-   border-radius: 3px;
-   font-size: 16px;
-   font-weight: 200;
-   padding: 10px 0;
-   width: 80%;
-   transition: border .5s;
-   }
-   input:focus {
-   border: 2px solid #3498DB;
-   box-shadow: none;
-   }
-   .btn {
-   border: 2px solid transparent;
-   background: #11038f;
-   color: #ffffff;
-   font-size: 16px;
-   line-height: 25px;
-   padding: 10px 0;
-   text-decoration: none;
-   text-shadow: none;
-   border-radius: 3px;
-   box-shadow: none;
-   transition: 0.25s;
-   display: block;
-   width: 80%;
-   margin: 0 auto;
-   }
-   .btn:hover {
-   background-color: #E55423;
-   }
-   .login-link {
-   font-size: 12px;
-   color: #444;
-   display: block;
-   margin-top: 12px;
-   }  
-    </style>
-    <title>Login</title>
-   {% block body %}
-   <form action="/login" method="POST">
-   <div class="login">
-     <div class="login-screen">
-       <div class="app-title">
-         <h1>Login</h1>
-       </div>
-     <div class="login-form">
-       <div class="control-group">
-           <input type="text" class="login-field" value="" placeholder="username" name="username">
-           <label class="login-field-icon fui-user" for="login-name"></label>
-       </div>
-       <div class="control-group">
-           <input type="password" class="login-field" value="" placeholder="password" name="password">
-           <label class="login-field-icon fui-lock" for="login-pass"></label>
-       </div>
-        <input type="submit" value="Log in" class="btn btn-primary btn-large btn-block">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page - BAT Infrastructure Monitoring</title>
+
+  <link href="static/css/bootstrap.css" rel="stylesheet">
+  <link href="../static/css/bootstrap.css" rel="stylesheet">
+  <link href="static/css/login.css" rel="stylesheet">
+</head>
+
+<body class="bg-dark d-flex flex-column justify-content-center flex-shrink-0" style="height: 100vh;">
+  <div class="container align-items-center" style="margin: auto;">
+    <div class="card flex-row border-0" style="min-height: 80vh;">
+      <div class="card-body d-flex flex-column justify-content-center">
+        <div class="row">
+          <div class="col d-flex justify-content-center">
+            <img src="/static/figure/logo-pjb.svg" width="100">
+          </div>
+          <div class="col border-start border-1">
+            <h5 class="fw-bolder">INFRASTRUCTURE</h5>
+            <p class="">PLTU Pacitan 1</p>
+          </div>
+        </div>
+        <form action="/login" method="POST">
+          <div class="m-3">
+            <input type="text" class="form-control my-3" name="username" id="username" aria-describedby="emailHelpId" placeholder="Email">
+            <input type="password" class="form-control my-3" name="password" id="password" aria-describedby="emailHelpId" placeholder="Password">            
+          </div>
+          <div class="d-grid m-3 mt-4">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
       </div>
-     </div>
+      <img src="/static/figure/f39897c17803e13b418d56efe66757ae.jpg" class="img-fluid rounded-end" style="max-width: 70%; object-fit: cover; filter:brightness(40%)">
     </div>
-   </form>
-   {% endblock %}
+  </div>
+</body>
+
+</html>
