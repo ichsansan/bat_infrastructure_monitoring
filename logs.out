@@ -1,84 +1,37 @@
- * Serving Flask app 'mainpage'
+ * Serving Flask app 'mainpage' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
  * Debug mode: on
-[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:5003
- * Running on http://10.184.0.2:5003
-[33mPress CTRL+C to quit[0m
- * Restarting with stat
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://10.184.0.2:5003/ (Press CTRL+C to quit)
+ * Restarting with watchdog (inotify)
  * Debugger is active!
- * Debugger PIN: 407-400-269
-114.125.102.23 - - [19/Mar/2023 09:09:22] "GET /docker-status HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 09:09:25] "POST /login HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 09:09:25] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:09:25] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:09:25] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
-114.125.102.23 - - [19/Mar/2023 09:09:25] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:09:27] "GET /docker-status HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 09:09:27] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:09:27] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:09:27] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
-114.125.102.23 - - [19/Mar/2023 09:09:27] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:10:25] "POST /restart HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 09:10:29] "GET /docker-status HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 09:10:30] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:10:30] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
-114.125.102.23 - - [19/Mar/2023 09:10:30] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:10:30] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:12:29] "GET /docker-status HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 09:12:29] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:12:30] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
-114.125.102.23 - - [19/Mar/2023 09:12:30] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:12:30] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:12:53] "POST /restart HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 09:13:19] "GET /docker-status HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 09:13:19] "[36mGET /static/css/bootstrap.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:13:19] "[33mGET /static/css/custom_sidebar.css HTTP/1.1[0m" 404 -
-114.125.102.23 - - [19/Mar/2023 09:13:19] "[36mGET /static/css/custom_body.css HTTP/1.1[0m" 304 -
-114.125.102.23 - - [19/Mar/2023 09:13:19] "[36mGET /static/figure/logo-pjb.svg HTTP/1.1[0m" 304 -
- * Detected change in '/home/wildanalaziz82_gmail_com/BAT2/COPT Main Program/bat_infrastructure_monitoring/mainpage.py', reloading
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 407-400-269
-114.125.102.23 - - [19/Mar/2023 10:10:57] "GET / HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 10:11:01] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
-Traceback (most recent call last):
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/flask/app.py", line 2551, in __call__
-    return self.wsgi_app(environ, start_response)
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/flask/app.py", line 2531, in wsgi_app
-    response = self.handle_exception(e)
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/flask/app.py", line 2528, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/flask/app.py", line 1825, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/flask/app.py", line 1823, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/flask/app.py", line 1799, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-  File "/home/wildanalaziz82_gmail_com/BAT2/COPT Main Program/bat_infrastructure_monitoring/mainpage.py", line 63, in login_proses
-    data = pd.read_csv(r'D:\SML Tech\Monitoring BAT\bat_infrastructure_monitoring\user.csv')
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/pandas/util/_decorators.py", line 311, in wrapper
-    return func(*args, **kwargs)
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 586, in read_csv
-    return _read(filepath_or_buffer, kwds)
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 482, in _read
-    parser = TextFileReader(filepath_or_buffer, **kwds)
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 811, in __init__
-    self._engine = self._make_engine(self.engine)
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 1040, in _make_engine
-    return mapping[engine](self.f, **self.options)  # type: ignore[call-arg]
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/pandas/io/parsers/c_parser_wrapper.py", line 51, in __init__
-    self._open_handles(src, kwds)
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/pandas/io/parsers/base_parser.py", line 229, in _open_handles
-    errors=kwds.get("encoding_errors", "strict"),
-  File "/home/wildanalaziz82_gmail_com/BAT2/UJPCT/SourceCode/reset_env/lib/python3.7/site-packages/pandas/io/common.py", line 707, in get_handle
-    newline="",
-FileNotFoundError: [Errno 2] No such file or directory: 'D:\\SML Tech\\Monitoring BAT\\bat_infrastructure_monitoring\\user.csv'
-114.125.102.23 - - [19/Mar/2023 10:11:01] "GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 10:11:01] "GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 10:11:01] "GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
-114.125.102.23 - - [19/Mar/2023 10:11:01] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
- * Detected change in '/home/wildanalaziz82_gmail_com/BAT2/COPT Main Program/bat_infrastructure_monitoring/.ipynb_checkpoints/mainpage-checkpoint.py', reloading
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 407-400-269
+ * Debugger PIN: 573-063-526
+180.253.163.23 - - [20/Mar/2023 09:36:08] "GET / HTTP/1.1" 200 -
+180.253.163.23 - - [20/Mar/2023 09:36:08] "GET /static/css/bootstrap.css HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:08] "GET /static/css/login.css HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:08] "GET /static/figure/f39897c17803e13b418d56efe66757ae.jpg HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:08] "GET /static/figure/logo-pjb.svg HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:08] "GET /static/css/bootstrap.css HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:08] "GET /static/figure/f39897c17803e13b418d56efe66757ae.jpg HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:08] "GET /static/css/login.css HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:08] "GET /static/figure/logo-pjb.svg HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:12] "POST /login HTTP/1.1" 200 -
+180.253.163.23 - - [20/Mar/2023 09:36:12] "GET /static/css/bootstrap.css HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:12] "GET /static/css/custom_body.css HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:12] "GET /static/css/custom_sidebar.css HTTP/1.1" 404 -
+180.253.163.23 - - [20/Mar/2023 09:36:12] "GET /static/figure/logo-pjb.svg HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:12] "GET /static/feather.png HTTP/1.1" 404 -
+180.253.163.23 - - [20/Mar/2023 09:36:14] "GET /docker-status HTTP/1.1" 200 -
+180.253.163.23 - - [20/Mar/2023 09:36:18] "GET /static/css/custom_sidebar.css HTTP/1.1" 404 -
+180.253.163.23 - - [20/Mar/2023 09:36:18] "GET /static/css/custom_body.css HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:18] "GET /static/css/bootstrap.css HTTP/1.1" 304 -
+180.253.163.23 - - [20/Mar/2023 09:36:18] "GET /static/figure/logo-pjb.svg HTTP/1.1" 304 -
+15.235.9.184 - - [20/Mar/2023 09:38:26] "GET / HTTP/1.1" 200 -
+15.235.9.184 - - [20/Mar/2023 09:38:26] "GET /static/css/bootstrap.css HTTP/1.1" 200 -
+15.235.9.184 - - [20/Mar/2023 09:38:27] "GET /static/figure/f39897c17803e13b418d56efe66757ae.jpg HTTP/1.1" 200 -
+15.235.9.184 - - [20/Mar/2023 09:38:27] "GET /static/figure/logo-pjb.svg HTTP/1.1" 200 -
+15.235.9.184 - - [20/Mar/2023 09:38:27] "GET /static/css/login.css HTTP/1.1" 200 -
+15.235.9.184 - - [20/Mar/2023 09:38:28] "GET /favicon.ico HTTP/1.1" 404 -

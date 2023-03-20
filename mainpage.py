@@ -5,8 +5,7 @@ from config import FOLDER_NAME
 import time, os
 
 app = Flask(__name__)
-debug_mode = False
-fetch_realtime = True
+debug_mode = True
 
 @app.route("/")
 def page_home():
@@ -60,7 +59,7 @@ def login_proses():
     passWord = login['password']
     # session['logged_in'] = False
 
-    data = pd.read_csv(r'D:\SML Tech\Monitoring BAT\bat_infrastructure_monitoring\user.csv')   
+    data = pd.read_csv('user.csv')   
     df = pd.DataFrame(data, columns=['user', 'password'])
 
     for i in df.index:
@@ -71,17 +70,13 @@ def login_proses():
     return page_home()
     
 @app.route('/restart', methods=['POST'])
-def edit_new():
+def restart_docker():
     payload = request.json
     # Extract the data from the payload and do something with it
     value1 = payload['data']['value1']
     value2 = payload['data']['value2']
 
     do_restart_individual_service(value1)
-
-    # restart loading
-    # for i in range(5): 
-    #     time.sleep(1)
     
     # Return a JSON response
     response = {'message': 'Success', 'datasend':payload}
