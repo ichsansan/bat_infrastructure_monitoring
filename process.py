@@ -52,6 +52,18 @@ a9d79d7a7541   registry:2                                "/entrypoint.sh /etc…
             'STATUS': status
         }
 
+    #data dummy
+    # body_result['tes1'] = {
+    #     'IMAGE': 'image',
+    #     'CREATED': 'created',
+    #     'STATUS': 'status'
+    # }
+    # body_result['tes2'] = {
+    #     'IMAGE': 'image2',
+    #     'CREATED': 'created2',
+    #     'STATUS': 'status2'
+    # }
+
     results['body'] = body_result
     return results
 
