@@ -51,27 +51,6 @@ a9d79d7a7541   registry:2                                "/entrypoint.sh /etc…
             'CREATED': created,
             'STATUS': status
         }
-    
-    body_result['tes1'] = {
-        'IMAGE': 'image1',
-        'CREATED': 'created1',
-        'STATUS': 'status1'
-    }
-    body_result['tes2'] = {
-        'IMAGE': 'image2',
-        'CREATED': 'created2',
-        'STATUS': 'status2'
-    }
-    body_result['tes3'] = {
-        'IMAGE': 'image3',
-        'CREATED': 'created3',
-        'STATUS': 'status3'
-    }
-    body_result['tes4'] = {
-        'IMAGE': 'image4',
-        'CREATED': 'created4',
-        'STATUS': 'status4'
-    }
 
     results['body'] = body_result
     return results

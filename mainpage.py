@@ -77,11 +77,11 @@ def edit_new():
     value1 = payload['data']['value1']
     value2 = payload['data']['value2']
 
-    # do_restart_individual_service(value1)
+    do_restart_individual_service(value1)
 
     # restart loading
-    for i in range(5): 
-        time.sleep(1)
+    # for i in range(5): 
+    #     time.sleep(1)
     
     # Return a JSON response
     response = {'message': 'Success', 'datasend':payload}
