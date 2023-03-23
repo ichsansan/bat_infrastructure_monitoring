@@ -2,10 +2,14 @@ from flask import Flask, render_template, redirect
 from flask import request, session, flash, send_from_directory, jsonify, abort
 from process import *
 from config import FOLDER_NAME
+from flask_session import Session
+from datetime import timedelta
 import time, os
 
 app = Flask(__name__)
-debug_mode = True
+app.secret_key = os.urandom(12)
+debug_mode = False
+fetch_realtime = True
 
 @app.route("/")
 def page_home():
@@ -13,6 +17,8 @@ def page_home():
     if not session.get('logged_in'):
         return render_template('Login.html')
     else:
+        if check_session_timeout():
+            return redirect('/login')
         return render_template('Home.html')
 
 @app.route("/bat-status")
@@ -66,6 +72,7 @@ def login_proses():
         user, pas = df.iloc[i]
         if user == userName and pas == passWord:
             session['logged_in'] = True
+            session['last_active'] = time.time()  # set last_active variable
 
     return page_home()
     
@@ -86,9 +93,37 @@ def restart_docker():
 @app.route('/logout')
 def logout():
     session['logged_in'] = False
+    session.clear()  # clear session data
     # return render_template('Login.html')
     return page_home()
 
+
+def check_session_timeout():
+    if 'logged_in' in session:
+        if 'last_active' in session and time.time() - session['last_active'] > 3600: # 3600 detik = 60 menit
+            session.pop('logged_in', None)
+            flash('Your session has timed out. Please log in again.', 'error')
+            return True
+    else:
+        if not request.path.startswith('/static') and not request.path.startswith('/login'):
+            flash('Your session has timed out. Please log in again.', 'error')
+            return redirect('/login')
+    session['last_active'] = time.time()
+    return False
+
+@app.before_request
+def before_request():
+    if 'last_active' in session:
+        now = time.time()
+        if now - session['last_active'] > 3600: # 3600 detik = 60 menit
+            session.pop('logged_in', None)
+            flash('Your session has timed out. Please log in again.', 'error')
+            return redirect('/login')
+    session['last_active'] = time.time()
+
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
+    app.config['SESSION_TYPE'] = 'filesystem'
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
+    Session(app)
     app.run('0.0.0.0', port=5003, debug=debug_mode)
