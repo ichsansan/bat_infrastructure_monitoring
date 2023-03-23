@@ -81,6 +81,30 @@
         }
     </style>
 
+    <script>
+        var idleTime = 0;
+        var idleInterval = setInterval(timerIncrement, 3600000); // 60 menit
+        document.addEventListener('mousemove', resetIdleTime);
+        document.addEventListener('keypress', resetIdleTime);
+        
+        function resetIdleTime() {
+            idleTime = 0;
+            }
+            
+            function timerIncrement() {
+            idleTime = idleTime + 1;
+            if (idleTime >= 1) { // Setelah 1 menit tanpa aktivitas
+                var elements = document.querySelectorAll("button, input, select"); // Pilih semua button, input, dan select
+                for (var i = 0; i < elements.length; i++) {
+                elements[i].disabled = true; // Setel semua elemen menjadi tidak aktif
+                }
+                clearInterval(idleInterval); // Hentikan interval timer
+                alert('Session timeout. Please log in again.'); // Tampilkan pesan
+                location.href = '/logout'; // Redirect ke halaman login
+            }
+        }
+    </script>
+
 </head>
 <body>
     <main class="overflow-auto text-light bg-dark" style="height: 100vh;">
@@ -95,7 +119,7 @@
 
                     <ul class="nav col-8 col-lg-auto me-lg-auto mb-2 ms-4 justify-content-center mb-md-0">
                         <li><a href="/" class="nav-link px-2 text-light active">Restart Services</a></li>
-                        <li><a href="/bat-status" class="nav-link px-2 text-light">BAT Status</a></li>
+                        <!-- <li><a href="/bat-status" class="nav-link px-2 text-light">BAT Status</a></li> -->
                         <li><a href="/docker-status" class="nav-link px-2 text-light">Docker Status</a></li>
                     </ul>
                     <a href="/logout" class="nav-link px-2 text-light">LogOut</a>
