@@ -1,4 +1,4 @@
-FOLDER_NAME = '/root/SourceCode/Reset Page/dst'
+FOLDER_NAME = 'dst/files'
 
 DOCKER_ALIAS = {
     'bat-fuse-pct1': {

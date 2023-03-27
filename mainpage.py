@@ -54,6 +54,24 @@ def download(filename):
     else:
         return page_home()
 
+@app.route("/upload", methods=['GET','POST'])
+def page_upload():
+    if session.get('logged_in'):
+        if request.method == 'GET':
+            return render_template('Upload.html')
+        else:
+            if not os.path.isdir(FOLDER_NAME): os.makedirs(FOLDER_NAME)
+            file = request.files['fileinput']
+            filename = time.strftime('%Y-%m-%d %H%M%S')
+            fileext = ''
+            if '.' in file.filename:
+                fileext = file.filename.split('.')[-1]
+            path = os.path.join(FOLDER_NAME, filename + '.' + fileext)
+            file.save(path)
+            return f"File `{file.filename}` -> `{path}` uploaded successfully"
+    else:
+        return page_home()
+
 @app.route('/login', methods=['POST'])
 def login_proses():
     login = request.form

@@ -1,0 +1,8 @@
+mvn archetype:generate
+maven-archetype-quickstart
+
+mvn clean package tomcat:run
+
+Lulusan S1 Teknik Informatika. Memiliki pengalaman programmer +-5 th (freelance, perusahaan) web dan desktop, 
+logika kuat, dan terbiasa dg analisis data. Pengalaman bekerja di beberapa perusahaan dengan pengalaman di bidang, 
+Teknisi, Marketing, SPV Area, IT Programmer.

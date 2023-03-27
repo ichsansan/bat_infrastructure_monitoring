@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="text-center">Docker Status</h3>
+
+<div class="row p-3">
+    <div class="col"></div>
+    <div class="col-auto text-center">
+        Status docker yang aktif di BAT1
+    </div>
+    <div class="col"></div>
+</div>
+
+
+<button class="restart-selected-btn btn btn-danger">Restart Selected Service</button>
+<div class="loading-data"></div>
+<table id="myTable" class="table table-hover table-good text-light">
+    <thead>
+        <tr>
+            {% for header in data.header %}
+                <th scope="col">{{ header }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for body in data.body %}
+        <tr>
+            <th scope="row">{{body}}</th>
+            <td>{{data['body'][body]['IMAGE']}}</td>
+            <td>{{data['body'][body]['CREATED']}}</td>
+            <td>{{data['body'][body]['STATUS']}}</td>
+            <td><input type="checkbox"></td>
+            <td>
+                <button class="restart-btn buttonnew">Restart</button>
+                <div class="loading"></div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    // Hide all loading messages
+    $('.loading').hide();
+    $('.loading-data').hide();
+    $('.restart-selected-btn').hide();
+
+    $('#myTable').on('click', '.restart-btn', function() {
+            // Get the data from the row
+            var row = $(this).closest('tr');
+            var id = row.attr('id');
+            var data = {
+                'value1': row.find('th:eq(0)').text(),
+                'value2': row.find('td:eq(0)').text()
+            };
+
+            // Show a confirmation dialog to the user
+            if (confirm("Are you sure you want to restart "+ row.find('th:eq(0)').text() +" ?")) {
+                // Tambahkan pesan loading
+                $('.restart-btn').hide();
+                row.find('.loading').show().text('Restarting...');
+
+                // Create a JSON payload
+                var payload = {
+                    id: id,
+                    data: data
+                };
+
+                // Send a POST request with the JSON payload
+                $.ajax({
+                    url: '/restart',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(payload),
+                    success: function(data) {
+                        // Redirect the user to the edit page
+                        alert(data['message']);
+                        location.href = "/docker-status";
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.error(error);
+                        location.href = "/docker-status";
+                    }
+                });
+            }
+        });
+    });
+    
+
+    $('#myTable').on('click', 'input[type="checkbox"]', function() {
+        var checked = $('#myTable input[type="checkbox"]:checked');
+        if (checked.length > 0) {
+            $('.restart-selected-btn').show();
+        } else {
+            $('.restart-selected-btn').hide();
+        }
+    });
+
+
+    // Handle restart-selected-btn click event
+    $('.restart-selected-btn').click(function() {
+        // Get the list of selected rows
+        var selectedRows = $('#myTable input[type="checkbox"]:checked').closest('tr');
+
+        // Create an array of JSON payloads for selected rows
+        var payloads = [];
+        selectedRows.each(function(index, row) {
+            var id = $(row).attr('id');
+            var data = {
+                'value1': $(row).find('th:eq(0)').text(),
+                'value2': $(row).find('td:eq(0)').text()
+            };
+            payloads.push({
+                id: id,
+                data: data
+            });
+        });
+
+        // Show a confirmation dialog to the user
+        if (confirm("Are you sure you want to restart the services?")) {
+            // Hide the restart-selected-btn
+            $('.restart-selected-btn').hide();
+            $('.restart-btn').hide();
+            $('.loading-data').show().text('Restarting Some Services...');
+
+            // Show a loading message for each selected row
+            selectedRows.each(function(index, row) {
+                $(row).find('.loading').show().text('Restarting...');
+            });
+
+            // Send multiple POST requests with the JSON payloads
+            var successCount = 0;
+            var errorCount = 0;
+            for (var i = 0; i < payloads.length; i++) {
+                $.ajax({
+                    url: '/restart',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(payloads[i]),
+                    success: function(data) {
+                        successCount++;
+                        if (successCount + errorCount == payloads.length) {
+                            // Redirect the user to the docker-status page
+                            var message = "Restarted " + successCount + " services.";
+                            if (errorCount > 0) {
+                                message += " " + errorCount + " services failed to restart.";
+                            }
+                            alert(message);
+                            location.href = "/docker-status";
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        errorCount++;
+                        if (successCount + errorCount == payloads.length) {
+                            // Redirect the user to the docker-status page
+                            var message = "Restarted " + successCount + " services.";
+                            if (errorCount > 0) {
+                                message += " " + errorCount + " services failed to restart.";
+                            }
+                            alert(message);
+                            location.href = "/docker-status";
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+
+
+    // setTimeout(function(){
+    //    window.location.reload(1);
+    // }, 60000);
+</script>
+
+{% endblock content %}
