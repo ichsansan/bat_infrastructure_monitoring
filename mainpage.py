@@ -2,13 +2,14 @@ from flask import Flask, render_template, redirect
 from flask import request, session, flash, send_from_directory, jsonify, abort
 from process import *
 from config import FOLDER_NAME
-from datetime import timedelta
+from datetime import datetime
 import time, os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
 debug_mode = False
 fetch_realtime = True
+app.config['UPLOAD_FOLDER'] = 'dst/files'
 
 @app.route("/")
 def page_home():
@@ -51,6 +52,22 @@ def download(filename):
         else:
             listfiles = os.listdir(FOLDER_NAME)
             return f"""file {filename} not found. \nFile found: {listfiles}"""
+    else:
+        return page_home()
+    
+@app.route("/download")
+def downloadpage():
+    if session.get('logged_in'):
+        files = os.listdir(app.config['UPLOAD_FOLDER'])
+        file_list = []
+        for file in files:
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file)
+            if os.path.isfile(file_path):
+                file_size = round(os.path.getsize(file_path) / 1024, 2)
+                file_last_modified = os.path.getmtime(file_path)
+                file_last_modified_str = datetime.fromtimestamp(file_last_modified).strftime('%Y-%m-%d %H:%M:%S')
+                file_list.append({'name': file, 'size': file_size, 'last_modified': file_last_modified_str})
+        return render_template('Download.html', files=file_list)
     else:
         return page_home()
 

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="text-center mb-5">Download File</h3>
+
+<form method="POST" autocomplete="off" enctype="multipart/form-data">
+  <div class="form-group row my-2">
+    <div class="col-sm-12">
+        <table class="table table-hover" style="color: white;">
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Last Modified</th>
+                <th>Size</th>
+                <th>Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for file in files %}
+                <tr>
+                  <td>{{ file['name'] }}</td>
+                  <td>{{ file['last_modified'] }}</td>
+                  <td>{{ file['size'] }} KB</td>
+                  <td><a href="{{ url_for('download', filename=file['name']) }}"  onclick="return confirm('Are you sure you want to download this file?')">Download</a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </ul>
+    </div>
+  </div>
+</form>
+
+{% endblock content %}
