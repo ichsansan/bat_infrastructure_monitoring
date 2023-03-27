@@ -2,6 +2,12 @@
 {% block content %}
 <h3 class="text-center mb-5">Upload File</h3>
 
+{% if alert %}
+<div class="alert alert-{{alert.type}} mb-2" role="alert">
+  {{ alert.message |safe }}
+</div>
+{% endif %}
+
 <form method="POST" autocomplete="off" enctype="multipart/form-data">
   <div class="form-group row my-2">
     <label for="filename" class="col-sm-2 col-form-label">File name</label>

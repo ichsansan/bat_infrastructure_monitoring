@@ -60,15 +60,24 @@ def page_upload():
         if request.method == 'GET':
             return render_template('Upload.html')
         else:
-            if not os.path.isdir(FOLDER_NAME): os.makedirs(FOLDER_NAME)
-            file = request.files['fileinput']
-            filename = time.strftime('%Y-%m-%d %H%M%S')
-            fileext = ''
-            if '.' in file.filename:
-                fileext = file.filename.split('.')[-1]
-            path = os.path.join(FOLDER_NAME, filename + '.' + fileext)
-            file.save(path)
-            return f"File `{file.filename}` -> `{path}` uploaded successfully"
+            alert = {'type':'danger','message':''}
+            try:
+                if not os.path.isdir(FOLDER_NAME): os.makedirs(FOLDER_NAME)
+                filename = request.form['filename']
+                if filename == '': filename = time.strftime('%Y-%m-%d %H%M%S')
+                
+                file = request.files['fileinput']
+                fileext = ''
+                if '.' not in filename:
+                    if '.' in file.filename:
+                        fileext = '.' + file.filename.split('.')[-1]
+                path = os.path.join(FOLDER_NAME, filename + fileext)
+                file.save(path)
+                alert['type'] = 'success'
+                alert['message'] = f"File <strong>{file.filename}</strong> berhasil disimpan dengan nama <strong>{filename + fileext}</strong> !"
+            except Exception as E:
+                alert['message'] = str(E)
+            return render_template('Upload.html', alert=alert)
     else:
         return page_home()
 
