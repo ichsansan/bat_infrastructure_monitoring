@@ -3,7 +3,7 @@ from flask import request, session, flash, send_from_directory, jsonify, abort
 from process import *
 from config import FOLDER_NAME
 from datetime import datetime
-import time, os
+import time, os, platform
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
@@ -11,11 +11,15 @@ debug_mode = False
 fetch_realtime = True
 app.config['UPLOAD_FOLDER'] = 'dst/files'
 
+app.config['HOSTNAME'] = ''
+if 'HOSTNAME' in os.environ.keys(): app.config['HOSTNAME'] = os.environ['HOSTNAME']
+else: app.config['HOSTNAME'] = list(platform.uname())[1]
+
 @app.route("/")
 def page_home():
     # return render_template('Login.html')
     if not session.get('logged_in'):
-        return render_template('Login.html')
+        return render_template('Login.html', hostname = app.config['HOSTNAME'])
     else:
         return render_template('Home.html')
 
