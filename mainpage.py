@@ -49,15 +49,15 @@ def restartservices():
 
 @app.route("/download/<filename>")
 def download(filename):
-    if session.get('logged_in'):
-        path = os.path.join(FOLDER_NAME, filename)
-        if os.path.isfile(path):
-            return send_from_directory(FOLDER_NAME, filename, as_attachment=True)
-        else:
-            listfiles = os.listdir(FOLDER_NAME)
-            return f"""file {filename} not found. \nFile found: {listfiles}"""
+    #if session.get('logged_in'):
+    path = os.path.join(FOLDER_NAME, filename)
+    if os.path.isfile(path):
+        return send_from_directory(FOLDER_NAME, filename, as_attachment=True)
     else:
-        return page_home()
+        listfiles = os.listdir(FOLDER_NAME)
+        return f"""file {filename} not found. \nFile found: {listfiles}"""
+    #else:
+    #    return page_home()
     
 @app.route("/download")
 def downloadpage():

@@ -26,6 +26,10 @@ DOCKER_ALIAS = {
         'name': 'SOPT Backend Service',
         'restart-required': True,
     },
+    'write-copt-pct1': {
+        'name': 'OPC Write for COPT',
+        'restart-required': True,
+    },
     
     # Rembang Unit1 (20)
     'bat-fuse-rbg1': {
@@ -89,7 +93,7 @@ DOCKER_ALIAS = {
         'restart-required': True,
     },
     'mariadb': {
-        'name': 'MariaDB',
+        'name': 'Database System',
         'restart-required': False,
     },
     'registry': {

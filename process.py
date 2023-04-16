@@ -37,7 +37,7 @@ a9d79d7a7541   registry:2                                "/entrypoint.sh /etc…
     body = data[1:]
 
     results = {}
-    results['header'] = ('DOCKER NAME', 'IMAGE','CREATED','STATUS','CHECKLIST','ACTION')
+    results['header'] = ('DOCKER NAME', 'NAME','CREATED','STATUS','CHECKLIST','ACTION')
 
     body_result = {}
     for b in body:
@@ -47,22 +47,12 @@ a9d79d7a7541   registry:2                                "/entrypoint.sh /etc…
             container_id, image, command, created, status, names = b
         else: continue
         body_result[names] = {
-            'IMAGE': image,
+            'IMAGE': config.DOCKER_ALIAS[names]['name'] if names in config.DOCKER_ALIAS.keys() else image, # image,
             'CREATED': created,
             'STATUS': status
         }
 
-    #data dummy
-    # body_result['tes1'] = {
-    #     'IMAGE': 'image',
-    #     'CREATED': 'created',
-    #     'STATUS': 'status'
-    # }
-    # body_result['tes2'] = {
-    #     'IMAGE': 'image2',
-    #     'CREATED': 'created2',
-    #     'STATUS': 'status2'
-    # }
+    
 
     results['body'] = body_result
     return results
