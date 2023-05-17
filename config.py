@@ -1,6 +1,82 @@
 FOLDER_NAME = 'dst/files'
 
+# Database
+DATABASE_CONNECTION = {
+    'IP': '0.0.0.0',
+    'PORT': '3306',
+}
+
 DOCKER_ALIAS = {
+    # TJA Unit 1
+    'bat-fuse-tja1': {
+        'name': 'UI Service',
+        'restart-required': False,
+    },
+    'soket-bat-tja1': {
+        'name': 'SOPT Backend Service',
+        'restart-required': False,
+    },
+    'comb-service-tja1': {
+        'name': 'COPT Backend Service',
+        'restart-required': False,
+    },
+    'sokket-bat-opc-read': {
+        'name': 'OPC Read',
+        'restart-required': True,
+    },
+    'subs': {
+        'name': 'OPC Read',
+        'restart-required': False,
+    },
+    'opc-write-copt': {
+        'name': 'OPC Write COPT',
+        'restart-required': True,
+    },
+    'sokket-bat-raw-read': {
+        'name': 'OPC Read',
+        'restart-required': False,
+    },
+    'ml-runner': {
+        'name': 'COPT Machine Learning',
+        'restart-required': False,
+    },
+    'comb-scheduler-tja1': {
+        'name': 'COPT Scheduler',
+        'restart-required': False,
+    },
+    
+    
+    # TJA Unit 2
+    'bat-fuse-tja2': {
+        'name': 'UI Service',
+        'restart-required': False,
+    },
+    'soket-bat-tja2': {
+        'name': 'SOPT Backend Service',
+        'restart-required': False,
+    },
+    'comb-service-tja2': {
+        'name': 'COPT Backend Service',
+        'restart-required': False,
+    },
+    'ml-runner': {
+        'name': 'COPT Machine Learning',
+        'restart-required': False,
+    },
+    'opc-write-copt': {
+        'name': 'OPC Write COPT',
+        'restart-required': True,
+    },
+    'sokket-bat-opc-read': {
+        'name': 'OPC Read',
+        'restart-required': True,
+    },
+    'comb-scheduler-tja2': {
+        'name': 'COPT Scheduler',
+        'restart-required': False,
+    },
+    
+    
     # Pacitan Unit 1
     'bat-fuse-pct1': {
         'name': 'UI Service',

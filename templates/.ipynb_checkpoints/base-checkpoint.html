@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 
 <head>
-    <title>BAT Rollout Project</title>
-
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
-
-    <!-- Favicons -->
+    <title>BAT Infrastructure Monitoring</title>
 
     <!-- Custom styles for this template -->
+    <!-- only use BS4 for styling, because of limitation on DCS Computer -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/custom_sidebar.css" rel="stylesheet">
     <link href="static/css/custom_body.css" rel="stylesheet">
@@ -118,10 +113,11 @@
                     </a>
 
                     <ul class="nav col-8 col-lg-auto me-lg-auto mb-2 ms-4 justify-content-center mb-md-0">
-                        <li><a href="/" class="nav-link px-2 text-light">Restart Services</a></li>
+                        <li><a href="/" class="nav-link px-2 text-light">BAT Monitoring</a></li>
                         <!-- <li><a href="/bat-status" class="nav-link px-2 text-light">BAT Status</a></li> -->
                         <li><a href="/docker-status" class="nav-link px-2 text-light">Docker Status</a></li>
                         <li><a href="/upload" class="nav-link px-2 text-light">Upload file</a></li>
+                        <li><a href="/download" class="nav-link px-2 text-light">Download file</a></li>
                     </ul>
                     <a href="/logout" class="nav-link px-2 text-light">LogOut</a>
                 </div>

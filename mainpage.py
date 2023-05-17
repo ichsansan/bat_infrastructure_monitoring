@@ -21,13 +21,13 @@ def page_home():
     if not session.get('logged_in'):
         return render_template('Login.html', hostname = app.config['HOSTNAME'])
     else:
-        return render_template('Home.html')
+        return render_template('Home.html', hostname = app.config['HOSTNAME'])
 
 @app.route("/bat-status")
 def page_bat_status():
     if session.get('logged_in'):
         data = get_bat_status()
-        return render_template('BAT Status.html', data = data)
+        return render_template('BAT Status.html', data = data, hostname = app.config['HOSTNAME'])
     else:
         return page_home()
 
@@ -35,7 +35,7 @@ def page_bat_status():
 def page_docker_status():
     if session.get('logged_in'):
         docker_status = get_docker_status()
-        return render_template('Docker Status.html', data = docker_status)
+        return render_template('Docker Status.html', data = docker_status, hostname = app.config['HOSTNAME'])
     else:
         return page_home()
 
@@ -43,7 +43,7 @@ def page_docker_status():
 def restartservices():
     if session.get('logged_in'):
         data = do_restart_services()
-        return render_template("Restartresponse.html", data = data)
+        return render_template("Restartresponse.html", data = data, hostname = app.config['HOSTNAME'])
     else:
         return page_home()
 
@@ -71,7 +71,7 @@ def downloadpage():
                 file_last_modified = os.path.getmtime(file_path)
                 file_last_modified_str = datetime.fromtimestamp(file_last_modified).strftime('%Y-%m-%d %H:%M:%S')
                 file_list.append({'name': file, 'size': file_size, 'last_modified': file_last_modified_str})
-        return render_template('Download.html', files=file_list)
+        return render_template('Download.html', files=file_list, hostname = app.config['HOSTNAME'])
     else:
         return page_home()
 
@@ -79,7 +79,7 @@ def downloadpage():
 def page_upload():
     if session.get('logged_in'):
         if request.method == 'GET':
-            return render_template('Upload.html')
+            return render_template('Upload.html', hostname = app.config['HOSTNAME'])
         else:
             alert = {'type':'danger','message':''}
             try:
@@ -135,6 +135,15 @@ def restart_docker():
     response = {'message': 'Success', 'datasend':payload}
     return jsonify(response)
 
+@app.route('/services/database-check')
+def service_db_check():
+    ret, warnings = do_database_checking()
+    return jsonify(ret)
+
+@app.route('/service/docker-check')
+def service_docker_check():
+    docker_status = get_docker_status()
+    return jsonify(docker_status)
     
 @app.route('/logout')
 def logout():
@@ -144,5 +153,4 @@ def logout():
     return page_home()
 
 if __name__ == "__main__":
-    app.secret_key = os.urandom(12)
     app.run('0.0.0.0', port=5003, debug=debug_mode)

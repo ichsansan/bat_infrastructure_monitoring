@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import subprocess, config, re, time
+from sqlalchemy import create_engine
 
 debug_mode = False
 
@@ -26,7 +27,7 @@ ff225e0c0594   e5cc9ac3a9aa                              "python /home/watchd…
 239e816e37be   mariadb:latest                            "docker-entrypoint.s…"   15 months ago   Up 2 months   0.0.0.0:3306->3306/tcp     mariadb
 a9d79d7a7541   registry:2                                "/entrypoint.sh /etc…"   19 months ago   Up 2 months   0.0.0.0:5000->5000/tcp     registry"""
     else:
-        raw_data = run_shell("docker ps -a")
+        raw_data = run_shell("docker ps")
     
     data = raw_data.replace('  ', '\t')
     data = data.replace('\t ', '\t')
@@ -95,21 +96,139 @@ def do_restart_individual_service(dockername):
     except Exception as e:
         raise SyntaxError(f"{e}")
 
-def do_restart_services():
-    commands = [
-        "docker restart subs",
-        "docker restart sokket-bat-opc-read",
-        "docker restart watchdog",
-        "docker restart write",
-        "docker restart opc-write-copt"
-    ]
-    results = ""
-    for com in commands:
-        try:
-            results += run_shell(com)
-        except Exception as e:
-            results += str(e) + '\n'
-    return results
+# def do_restart_services():
+#     commands = [
+#         "docker restart subs",
+#         "docker restart sokket-bat-opc-read",
+#         "docker restart watchdog",
+#         "docker restart write",
+#         "docker restart opc-write-copt"
+#     ]
+#     results = ""
+#     for com in commands:
+#         try:
+#             results += run_shell(com)
+#         except Exception as e:
+#             results += str(e) + '\n'
+#     return results
+
+def do_database_checking():
+    con = "mysql+mysqlconnector://root:P%40ssw0rd@localhost:3306"
+    q = f"SHOW DATABASES"
+    dbs = pd.read_sql(q, con)
+    dbs = [f for f in dbs.values.reshape(-1) if (f.startswith('db_bat')) and (not (f.endswith('_dev')))]
+    
+    ret = {}
+    warnings = []
+    
+    for db in dbs:
+        print(db)
+
+        with create_engine(f"{con}/{db}").connect() as engine:
+            ret[db] = []
+
+            # Cek read opc
+            for name, table in [['Read OPC','tb_bat_raw']]:
+                print(f"Running {name}")
+                q = f"""SELECT NOW() AS `now`, 
+                        MAX(R.f_date_rec) AS latest_ts, 
+                        NOW() - MAX(R.f_date_rec) AS delay 
+                        FROM tb_tags_read_conf C
+                        LEFT JOIN tb_bat_raw R
+                        ON R.f_address_no = C.f_tag_name 
+                        WHERE C.f_is_active = 1"""
+                try:
+                    rawdata = pd.read_sql(q, engine)
+                    now, latest_ts, delay = rawdata.iloc[0]
+                    if delay < 600:
+                        status = True
+                        subtitle = f"Data terakhir {latest_ts}"
+                    else:
+                        status = False
+                        subtitle = f"Data telat sejak {latest_ts}"
+
+                    summary = {
+                        'title': name,
+                        'status': status,
+                        'subtitle': subtitle
+                    }
+                    ret[db].append(summary)
+                except Exception as E:
+                    message = f"Error fetching Read OPC on {db}: `{E}`"
+                    warnings.append(message)
+
+            # Cek write opc
+            for name,table in [['Write OPC','tb_opc_write'],['Write OPC COPT','tb_opc_write_copt']]:
+                print(f"Running {name}")
+                try:
+                    try:
+                        q = f"""SELECT "{db}" AS db,
+                                "{table}" AS `table`,
+                                COUNT(*) AS `stucked`,
+                                MIN(ts) AS `mintime`
+                                FROM {table}
+                                """
+                        opcwriter = pd.read_sql(q, engine)
+                    except:
+                        q = f"""SELECT "{db}" AS db,
+                                "{table}" AS `table`,
+                                COUNT(*) AS `stucked`,
+                                "-" AS `mintime`
+                                FROM {table}
+                                """
+                        opcwriter = pd.read_sql(q, engine)
+
+                    _, _, stucked, mintime = opcwriter.iloc[0]
+                    if opcwriter.iloc[0]['stucked'] < 5: 
+                        status = True
+                        subtitle = 'Aman'
+                    else: 
+                        status = False
+                        subtitle = f"Ada penumpukan {stucked} baris sejak {mintime}"
+                    summary = {
+                        'title': name,
+                        'status': status,
+                        'subtitle': subtitle
+                    }
+                    ret[db].append(summary)
+                except Exception as E:
+                    message = f"Error fetching Read OPC on {db}: `{E}`"
+                    warnings.append(message)
+
+            # Cek pemodelan copt
+            for name, table in [['COPT Model', 'tb_combustion_model_generation']]:
+                print(f"Running {name}")
+                try:
+                    q = f"""SELECT R.f_value FROM tb_effectivity_config C
+                            LEFT JOIN tb_bat_raw R 
+                            ON C.f_value = R.f_address_no 
+                            WHERE f_description = "COPT enable tag" """
+                    copt_status = pd.read_sql(q, engine).replace('False',0).replace('True',1).values[0][0]
+
+                    q = f"""SELECT NOW() AS `now`, MAX(ts) AS `latest_data`, 
+                            NOW() - MAX(ts) AS `delay` FROM {table} """
+                    copt_generation = pd.read_sql(q, engine)
+                    now, latest_data, _ = copt_generation.iloc[0]
+                    delay = pd.to_datetime(now) - pd.to_datetime(latest_data)
+
+                    if (copt_status == 1) and (delay > pd.to_timedelta('15min')):
+                        status = False
+                        subtitle = f"<b>COPT Enable</b>, ada delay rekomendasi sejak {latest_data}"
+                    else:
+                        status = True
+                        if copt_status == 1: subtitle = f"<b>COPT Enable</b>, rekomendasi terakhir: {latest_data}"
+                        else: subtitle = f"COPT Disable, rekomendasi terakhir: {latest_data}"
+
+                    summary = {
+                        'title': name,
+                        'status': status,
+                        'subtitle': subtitle
+                    }
+                    ret[db].append(summary)
+                except Exception as E:
+                    message = f"Error fetching Read OPC on {db}: `{E}`"
+                    warnings.append(message)
+    return ret, warnings
 
 if __name__ == '__main__':
     print(get_bat_status())

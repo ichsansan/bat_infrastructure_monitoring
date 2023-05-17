@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h3 class="text-center mb-5">Upload File</h3>
+<p>Hostname: <mark>{{ hostname }}</mark></p>
 
 {% if alert %}
 <div class="alert alert-{{alert.type}} mb-2" role="alert">
